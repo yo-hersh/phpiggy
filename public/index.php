@@ -12,4 +12,4 @@ $app = include __DIR__.'/../src/app/bootstrap.php';
 
 $app->run();
 
-dd($_SERVER);
+dd($app);
