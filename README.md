@@ -1,2 +1,2 @@
 # phpiggy
- a PHP project, creting a frameworkand an app
+ a PHP project, creating a framework and an app
