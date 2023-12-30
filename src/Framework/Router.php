@@ -4,6 +4,17 @@ declare(strict_types=1);
 
 namespace Framework;
 
-class Router{}
+class Router{
+    private array $routes = [];
+
+    public function add(string $path): void{
+
+        $this->routes[] = [
+            'path' => $path,
+        ];
+    }
+
+
+}
 
 ?>

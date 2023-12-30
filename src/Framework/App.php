@@ -14,10 +14,12 @@ class App
         $this->router = new Router();
     }
 
-
-
     public function run(): void
     {
         echo "Application is running";
+    }
+
+    public function add(string $path): void{
+        $this->router->add($path);
     }
 }
