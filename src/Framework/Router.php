@@ -11,8 +11,15 @@ class Router
     public function add(string $method, string $path): void
     {
         $this->routes[] = [
-            'path' => $path,
+            'path' => $this->normalizePath($path),
             'method' => strtoupper($method),
         ];
+    }
+
+    private function normalizePath(string $path): string
+    {
+        $path = trim($path, '/');
+        $path = "/{$path}/";
+        return $path;
     }
 }
