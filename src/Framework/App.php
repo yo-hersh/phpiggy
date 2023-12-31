@@ -19,7 +19,7 @@ class App
         echo "Application is running";
     }
 
-    public function add(string $path): void{
-        $this->router->add($path);
+    public function get(string $path): void{
+        $this->router->add('GET',$path);
     }
 }

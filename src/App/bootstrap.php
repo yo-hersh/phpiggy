@@ -11,6 +11,6 @@ $app = new App();
 // it's needed to create a func to added a value to a private property
 // $app->router->add('/');
 
-$app->add('/');
+$app->get('/');
 
 return $app;
