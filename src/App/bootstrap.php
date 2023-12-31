@@ -4,6 +4,7 @@ declare(strict_types=1);
 include __DIR__ . '/../../vendor/autoload.php';
 
 use Framework\App;
+use App\Controllers\HomeController;
 
 $app = new App();
 
@@ -11,6 +12,6 @@ $app = new App();
 // it's needed to create a func to added a value to a private property
 // $app->router->add('/');
 
-$app->get('/', ['App\Controllers\HomeController', 'home']);
+$app->get('/', [HomeController::class, 'home']);
 
 return $app;
