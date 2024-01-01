@@ -17,7 +17,6 @@ class HomeController
     }
     public function home()
     {
-        dd($this->view);
-        echo "Home page";
+        $this->view->render('index.php');
     }
 }
