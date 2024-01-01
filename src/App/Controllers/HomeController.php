@@ -6,7 +6,7 @@ namespace App\Controllers;
 
 class HomeController
 {
-    public function index()
+    public function home()
     {
         echo "Home page";
     }
