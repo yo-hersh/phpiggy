@@ -13,7 +13,7 @@ class Router
         $this->routes[] = [
             'path' => $this->normalizePath($path),
             'method' => strtoupper($method),
-            'controller' => $controller 
+            'controller' => $controller
         ];
     }
 
@@ -23,5 +23,21 @@ class Router
         $path = "/{$path}/";
         $path = preg_replace('#[/]{2,}#', '/', $path);
         return $path;
+    }
+
+    public function dispatch(string $method, string $path)
+    {
+        $path = $this->normalizePath($path);
+        $method = strtoupper($method);
+
+        foreach ($this->routes as $route) {
+            if (
+                !preg_match("#^{$route['path']}$#", $path) ||
+                $route['method'] !== $method
+            ) {
+                continue;
+            }
+            echo 'route found';
+        }
     }
 }

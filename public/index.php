@@ -11,5 +11,3 @@ include __DIR__.'/../src/app/functions.php';
 $app = include __DIR__.'/../src/app/bootstrap.php';
 
 $app->run();
-
-dd($app);
