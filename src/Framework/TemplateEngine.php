@@ -15,10 +15,15 @@ class TemplateEngine
         extract($data, EXTR_SKIP);
         ob_start();
 
-        include "{$this->basePath}/{$template}";
+        include $this->resolve($template);
 
         $content = ob_get_contents();
         ob_get_clean();
         return $content;
+    }
+
+    public function resolve(string $path)
+    {
+        return "{$this->basePath}/{$path}";
     }
 }
