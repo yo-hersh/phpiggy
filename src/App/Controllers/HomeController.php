@@ -17,7 +17,7 @@ class HomeController
     }
     public function home()
     {
-        $this->view->render(
+        echo $this->view->render(
             'index.php',
             [
                 'username' => 'Yosef Hershkovitz'
