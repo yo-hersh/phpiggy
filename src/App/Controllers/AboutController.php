@@ -21,6 +21,7 @@ class AboutController
             'about.php',
             [
                 "title" => "About",
+                "dangerousDate" => '<script>alert(123)</script>'
             ]
         );
     }

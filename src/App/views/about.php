@@ -8,7 +8,8 @@
     <hr />
 
     <!-- Escaping Data -->
-    <p>Escaping Data: </p>
+    <p>Escaping Data: <?php echo e($dangerousDate); ?>
+    </p>
 </section>
 <!-- End Main Content Area -->
 
