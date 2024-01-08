@@ -20,7 +20,8 @@ class HomeController
         echo $this->view->render(
             'index.php',
             [
-                'username' => 'Yosef Hershkovitz'
+                'username' => 'Yosef Hershkovitz',
+                'title' => 'Home',
             ]
         );
     }

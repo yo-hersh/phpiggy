@@ -6,7 +6,6 @@
     <h3>About Page</h3>
 
     <hr />
-
     <!-- Escaping Data -->
     <p>Escaping Data: <?php echo e($dangerousDate); ?>
     </p>
