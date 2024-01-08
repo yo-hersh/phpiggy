@@ -4,7 +4,7 @@ declare(strict_types=1);
 include __DIR__ . '/../../vendor/autoload.php';
 
 use Framework\App;
-use App\Controllers\{HomeController, AboutController};
+use function App\Config\RegisterRoutes;
 
 $app = new App();
 
@@ -12,7 +12,7 @@ $app = new App();
 // it's needed to create a func to added a value to a private property
 // $app->router->add('/');
 
-$app->get('/', [HomeController::class, 'home']);
-$app->get('/about', [AboutController::class, 'about']);
+RegisterRoutes($app);
+
 
 return $app;
