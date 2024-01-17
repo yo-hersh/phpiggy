@@ -4,7 +4,7 @@ declare(strict_types=1);
 include __DIR__ . '/../../vendor/autoload.php';
 
 use Framework\App;
-use App\Config\{Routes, Paths};
+use App\Config\{Middleware, Routes, Paths};
 
 $app = new App(paths::SOURCE . 'App/container-definitions.php');
 
@@ -13,6 +13,6 @@ $app = new App(paths::SOURCE . 'App/container-definitions.php');
 // $app->router->add('/');
 
 Routes::registerRoutes($app);
-
+Middleware::registerMiddleware($app);
 
 return $app;
