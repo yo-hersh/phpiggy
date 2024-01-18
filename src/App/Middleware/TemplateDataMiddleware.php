@@ -11,8 +11,6 @@ class TemplateDataMiddleware implements MiddlewareInterface
 {
     public function __construct(private TemplateEngine $view)
     {
-        var_dump($this->view);
-        echo "<br>";
     }
     public function process(callable $next)
     {
