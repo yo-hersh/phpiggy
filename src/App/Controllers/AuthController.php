@@ -5,20 +5,18 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use Framework\TemplateEngine;
-use App\Config\Paths;
 
-class RegisterController
+class AuthController
 {
     public function __construct(private TemplateEngine $view)
     {
     }
-    public function register()
+    public function registerView()
     {
         echo $this->view->render(
             'register.php',
             [
-                'username' => 'Yosef Hershkovitz',
-                'title' => 'Register',
+                'title' => 'Register'
             ]
         );
     }
