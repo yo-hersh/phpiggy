@@ -9,6 +9,7 @@ use Framework\Contracts\RuleInterface;
 class Validator
 {
     private array $rules = [];
+    private array $errors = [];
 
     public function addRule(string $alias, RuleInterface $rule)
     {
@@ -22,9 +23,12 @@ class Validator
                 $ruleValidator = $this->rules[$rule];
 
                 if (!$ruleValidator->validate($data, $field, [])) {
-                    echo $ruleValidator->getErrorMessage($data, $field, []);
+                    $errors[$field][] = $ruleValidator->getErrorMessage($data, $field, []);
                 }
             }
+        }
+        if (count($errors)) {
+            dd($errors);
         }
     }
 }
