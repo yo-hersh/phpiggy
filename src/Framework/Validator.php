@@ -10,7 +10,6 @@ use Framework\Exceptions\validationException;
 class Validator
 {
     private array $rules = [];
-    private array $errors = [];
 
     public function addRule(string $alias, RuleInterface $rule)
     {
@@ -18,6 +17,7 @@ class Validator
     }
     public function validate(array $data, array $fields)
     {
+        $errors = [];
         foreach ($fields as $field => $rules) {
             foreach ($rules as $rule) {
 
