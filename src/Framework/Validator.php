@@ -29,7 +29,7 @@ class Validator
             }
         }
         if (count($errors)) {
-            throw new validationException();
+            throw new validationException($errors);
         }
     }
 }
