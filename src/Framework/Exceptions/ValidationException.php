@@ -6,7 +6,7 @@ namespace Framework\Exceptions;
 
 use RuntimeException;
 
-class validationException extends RuntimeException
+class ValidationException extends RuntimeException
 {
     public function __construct(int $code = 422)
     {
