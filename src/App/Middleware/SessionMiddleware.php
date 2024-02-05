@@ -14,6 +14,8 @@ class SessionMiddleware implements MiddlewareInterface
         if (session_status() === PHP_SESSION_ACTIVE) {
             throw new SessionException("Session already started");
         }
+        ob_end_clean();
+        echo "here";
 
         if (headers_sent()) {
             throw new SessionException("Headers already sent");
