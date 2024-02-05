@@ -14,6 +14,10 @@ class SessionMiddleware implements MiddlewareInterface
         if (session_status() === PHP_SESSION_ACTIVE) {
             throw new SessionException("Session already started");
         }
+
+        // the ob_end_clean is not only removes the output buffer but also turn off output buffering,
+        // so, any data written after this line will be sent to the browser without being buffered,
+        // which is causes an error by trying to start a session after headers have already been sent
         ob_end_clean();
         echo "here";
 
