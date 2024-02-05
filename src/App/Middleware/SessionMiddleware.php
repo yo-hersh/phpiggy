@@ -15,9 +15,10 @@ class SessionMiddleware implements MiddlewareInterface
             throw new SessionException("Session already started");
         }
 
-        if (headers_sent()) {
-            throw new SessionException("Headers already sent");
+        if (headers_sent($filename, $line)) {
+            throw new SessionException("Headers already sent. Error in {$filename}, Line: {$line}");
         }
+
         session_start();
         $next();
     }
