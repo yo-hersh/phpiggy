@@ -10,7 +10,7 @@ class EmailRules implements RuleInterface
 {
     public function validate(array $data, string $field, array $params): bool
     {
-        return filter_var($data[$field], FILTER_VALIDATE_EMAIL);
+        return (bool)filter_var($data[$field], FILTER_VALIDATE_EMAIL);
     }
 
     public function getErrorMessage(array $data, string $field, array $params): string
