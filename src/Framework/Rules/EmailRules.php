@@ -15,6 +15,6 @@ class EmailRules implements RuleInterface
 
     public function getErrorMessage(array $data, string $field, array $params): string
     {
-        return "Field {$field} is not a valid email";
+        return "Invalid email";
     }
 }
