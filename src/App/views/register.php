@@ -9,7 +9,7 @@
             <input name="email" type="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="john@example.com" />
             <?php if (array_key_exists('email', $errors)) : ?>
                 <div class="bg-grey-100 mt-2 p-2 text-red-500">
-                    <?php foreach ($errors['email'] as $error) echo e($error); ?>
+                    <?php foreach ($errors['email'] as $error) echo e($error . " "); ?>
                 </div>
             <?php endif; ?>
         </label>
@@ -19,7 +19,7 @@
             <input name="age" type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="" />
             <?php if (array_key_exists('age', $errors)) : ?>
                 <div class="bg-grey-100 mt-2 p-2 text-red-500">
-                    <?php foreach ($errors['age'] as $error) echo e($error); ?>
+                    <?php foreach ($errors['age'] as $error) echo e($error . " "); ?>
                 </div>
             <?php endif; ?>
         </label>
@@ -39,7 +39,7 @@
             <input name="social_media_url" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="" />
             <?php if (array_key_exists('social_media_url', $errors)) : ?>
                 <div class="bg-grey-100 mt-2 p-2 text-red-500">
-                    <?php foreach ($errors['social_media_url'] as $error) echo e($error); ?>
+                    <?php foreach ($errors['social_media_url'] as $error) echo e($error . " "); ?>
                 </div>
             <?php endif; ?>
         </label>
@@ -49,7 +49,7 @@
             <input name="password" type="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="" />
             <?php if (array_key_exists('password', $errors)) : ?>
                 <div class="bg-grey-100 mt-2 p-2 text-red-500">
-                    <?php foreach ($errors['password'] as $error) echo e($error); ?>
+                    <?php foreach ($errors['password'] as $error) echo e($error . " "); ?>
                 </div>
             <?php endif; ?>
         </label>
@@ -59,7 +59,7 @@
             <input name="confirm_password" type="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="" />
             <?php if (array_key_exists('confirm_password', $errors)) : ?>
                 <div class="bg-grey-100 mt-2 p-2 text-red-500">
-                    <?php foreach ($errors['confirm_password'] as $error) echo e($error); ?>
+                    <?php foreach ($errors['confirm_password'] as $error) echo e($error . " "); ?>
                 </div>
             <?php endif; ?>
         </label>
@@ -75,7 +75,7 @@
         </div>
         <?php if (array_key_exists('tos', $errors)) : ?>
             <div class="bg-grey-100 mt-2 p-2 text-red-500">
-                <?php foreach ($errors['tos'] as $error) echo e($error); ?>
+                <?php foreach ($errors['tos'] as $error) echo e($error . " "); ?>
             </div>
         <?php endif; ?>
         </label>
