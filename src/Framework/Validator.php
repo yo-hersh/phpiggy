@@ -20,11 +20,16 @@ class Validator
         $errors = [];
         foreach ($fields as $field => $rules) {
             foreach ($rules as $rule) {
+                $ruleParameters = [];
+                if (str_contains($rule, ':')) {
+                    [$rule, $ruleParameters] = explode(':', $rule);
+                    $ruleParameters = explode(',', $ruleParameters);
+                }
 
                 $ruleValidator = $this->rules[$rule];
 
-                if (!$ruleValidator->validate($data, $field, [])) {
-                    $errors[$field][] = $ruleValidator->getErrorMessage($data, $field, []);
+                if (!$ruleValidator->validate($data, $field, $ruleParameters)) {
+                    $errors[$field][] = $ruleValidator->getErrorMessage($data, $field, $ruleParameters);
                 }
             }
         }
