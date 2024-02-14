@@ -32,6 +32,11 @@
                 <option value="Mexico">Mexico</option>
                 <option value="Invalid">Invalid Country</option>
             </select>
+            <?php if (array_key_exists('country', $errors)) : ?>
+                <div class="bg-grey-100 mt-2 p-2 text-red-500">
+                    <?php foreach ($errors['country'] as $error) echo e($error . " "); ?>
+                </div>
+            <?php endif; ?>
         </label>
         <!-- Social Media URL -->
         <label class="block">
