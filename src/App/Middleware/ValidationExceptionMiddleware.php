@@ -14,14 +14,12 @@ class ValidationExceptionMiddleware implements MiddlewareInterface
         try {
             $next();
         } catch (ValidationException $e) {
-            $_SESSION['flash'] = ['errors' => $e->errors];
+            $_SESSION['flash'] = [
+                'errors' => $e->errors,
+                'oldFormData' => $_POST
+            ];
             $referer = $_SERVER['HTTP_REFERER'];
             redirectTo($referer);
         }
-        // try {
-        //     return $next();
-        // } catch (validationException $e) {
-        //     return $e->getCode();
-        // }
     }
 }
