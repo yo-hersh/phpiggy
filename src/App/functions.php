@@ -45,3 +45,11 @@ function formErrorPrinting(string $value, array $errors)
         echo '</div>';
     }
 }
+
+function formDataPrinting(array $formData, string $key, array $errors)
+{
+    if (array_key_exists($key, $errors)) {
+        return;
+    }
+    return e($formData[$key] ?? '');
+}
