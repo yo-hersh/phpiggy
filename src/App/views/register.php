@@ -9,13 +9,13 @@
         <!-- Email -->
         <label class="block">
             <span class="text-gray-700">Email address</span>
-            <input value='<?php echo e($oldFormData['email'] ?? '') ?>' name="email" type="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="john@example.com" />
+            <input name="email" type="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="john@example.com" />
             <?php formErrorPrinting('email', $errors) ?>
         </label>
         <!-- Age -->
         <label class="block">
             <span class="text-gray-700">Age</span>
-            <input name="age" type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="" />
+            <input value="<?php echo formDataPrinting($oldFormData, 'age', $errors) ?>" name="age" type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="" />
             <?php formErrorPrinting('age', $errors) ?>
         </label>
         <!-- Country -->
@@ -23,8 +23,8 @@
             <span class="text-gray-700">Country</span>
             <select name="country" class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                 <option value="USA">USA</option>
-                <option value="Canada">Canada</option>
-                <option value="Mexico">Mexico</option>
+                <option value="Canada" <?php echo formDataPrinting($oldFormData, 'country', $errors) === 'Canada' ? 'selected' : '' ?>>Canada</option>
+                <option value="Mexico" <?php echo formDataPrinting($oldFormData, 'country', $errors) === 'Mexico' ? 'selected' : '' ?>>Mexico</option>
                 <option value="Invalid">Invalid Country</option>
             </select>
             <?php formErrorPrinting('country', $errors) ?>
@@ -32,7 +32,7 @@
         <!-- Social Media URL -->
         <label class="block">
             <span class="text-gray-700">Social Media URL</span>
-            <input name="social_media_url" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="" />
+            <input value="<?php echo formDataPrinting($oldFormData, 'social_media_url', $errors) ?>" name="social_media_url" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="" />
             <?php formErrorPrinting('social_media_url', $errors) ?>
         </label>
         <!-- Password -->
@@ -52,7 +52,7 @@
             <div class="mt-2">
                 <div>
                     <label class="inline-flex items-center">
-                        <input name="tos" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" type="checkbox" />
+                        <input <?php echo formDataPrinting($oldFormData, 'tos', $errors) ? 'checked' : '' ?> name="tos" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" type="checkbox" />
                         <span class="ml-2">I accept the terms of service.</span>
                 </div>
             </div>
