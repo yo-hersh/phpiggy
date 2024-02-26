@@ -10,7 +10,7 @@ $db = new Database('mysql', [
     'dbname' => 'phpiggy'
 ], 'root', '');
 
-$query = "SELECT * FROM products";
+$query = "SELECT * FROM products WHERE name='dag' OR 1=1--";
 
 $stmt = $db->connection->query($query, PDO::FETCH_ASSOC);
 
