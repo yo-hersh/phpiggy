@@ -10,4 +10,9 @@ $db = new Database('mysql', [
     'dbname' => 'phpiggy'
 ], 'root', '');
 
+$query = "SELECT * FROM products";
+
+$stmt = $db->connection->query($query, PDO::FETCH_ASSOC);
+
+var_dump($stmt->fetchAll(PDO::FETCH_OBJ));
 echo 'Connection established';
