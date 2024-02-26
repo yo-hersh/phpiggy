@@ -14,5 +14,8 @@
             "Framework\\": "src/Framework",
             "App\\": "src/App"
         }
+    },
+    "scripts": {
+        "phpiggy": "php cli.php"
     }
 }
