@@ -7,7 +7,7 @@ use Framework\Database;
 $db = new Database('mysql', [
     'host' => 'localhost',
     'port' => 3306,
-    'database' => 'phpiggy'
+    'dbname' => 'phpiggy'
 ], 'root', '');
 
 echo 'Connection established';
