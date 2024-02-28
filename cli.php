@@ -14,10 +14,12 @@ $db = new Database('mysql', [
 // sql injection
 $injection = 'test OR 1=1--';
 
-// by using the query func we can prevent the injection
+// by using the query func we can prevent an injection
 // $query = "SELECT * FROM products WHERE name={$injection}";
 // $stmt = $db->connection->query($query, PDO::FETCH_ASSOC);
 // the PDO:: is only can be used in the query func not in the execute func
+
+/*
 
 // solution 1
 $query = "SELECT * FROM products WHERE name=?";
@@ -36,6 +38,8 @@ $stmt = $db->connection->prepare($query);
 $stmt->execute([
     'name' => $injection
 ]);
+
+*/
 
 // or with the bind func
 $query = "SELECT * FROM products WHERE name=:name";
