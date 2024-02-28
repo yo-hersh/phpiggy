@@ -49,7 +49,22 @@ $stmt = $db->connection->prepare($query);
 $stmt->bindValue(':name', $injection, PDO::PARAM_STR);
 
 $stmt->execute();
-
-
 var_dump($stmt->fetchAll(PDO::FETCH_OBJ));
+
+// Transaction example
+try {
+    $db->connection->beginTransaction();
+
+    $stmt = $db->connection->query("SELECT * FROM products");
+    $db->connection->query("INSERT INTO products (name, ID) VALUES ('test', 10)");
+    var_dump($stmt->fetchAll(PDO::FETCH_OBJ));
+
+    $db->connection->commit();
+} catch (Exception $e) {
+    if ($db->connection->inTransaction()) {
+        $db->connection->rollBack();
+    }
+    echo 'Transaction failed';
+}
+
 echo 'Connection established';
