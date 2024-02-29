@@ -9,3 +9,7 @@ $db = new Database('mysql', [
     'port' => 3306,
     'dbname' => 'phpiggy'
 ], 'root', '');
+
+$sqlFile = file_get_contents(__DIR__ . '/database.sql');
+
+$db->connection->exec($sqlFile);
