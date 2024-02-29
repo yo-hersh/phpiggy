@@ -6,7 +6,6 @@ CREATE TABLE `users`(
     `country` VARCHAR(255) NOT NULL,
     `social_media_url` VARCHAR(255) NOT NULL,
     `created_at` DATETIME NOT NULL default CURRENT_TIMESTAMP,
-    `updated_at` DATETIME NOT NULL default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    UNIQUE KEY (`email`)
+    `updated_at` DATETIME NOT NULL default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY(`email`)
 );
--- ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
