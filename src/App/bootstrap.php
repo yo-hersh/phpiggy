@@ -5,6 +5,10 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use Framework\App;
 use App\Config\{Middleware, Routes, Paths};
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(Paths::ROOT);
+$dotenv->load();
 
 $app = new App(paths::SOURCE . 'App/container-definitions.php');
 
