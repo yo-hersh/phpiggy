@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Framework;
 
-use PDO, PDOException;
+use PDO, PDOException, PDOStatement;
 
 class Database
 {
     public PDO $connection;
+    public PDOStatement $stmt;
     public function __construct(string $driver, array $config, string $username, string $password)
     {
 
@@ -21,5 +22,18 @@ class Database
         } catch (PDOException $e) {
             die('Connection failed');
         }
+    }
+
+    // It's return the Database class itself to use the different methods like count() in the class which is used to get the count
+    public function query(string $query, array $params = []): Database
+    {
+        $this->stmt = $this->connection->prepare($query);
+        $this->stmt->execute($params);
+        return $this;
+    }
+
+    public function count()
+    {
+        return $this->stmt->fetchColumn();
     }
 }
