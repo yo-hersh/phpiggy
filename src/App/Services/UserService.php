@@ -24,4 +24,20 @@ class UserService
             throw new ValidationException(['email' => ['Email is already taken']], 422);
         }
     }
+
+    public function create(array $data)
+    {
+        extract($data);
+        $this->db->query(
+            "INSERT INTO users (email, age, country, social_media_url, password)
+             VALUES (:email, :age, :country, :social_media_url, :password)",
+            [
+                'email' => $email,
+                'age' => $age,
+                'country' => $country,
+                'social_media_url' => $social_media_url,
+                'password' => $password
+            ]
+        );
+    }
 }
