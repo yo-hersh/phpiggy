@@ -32,4 +32,14 @@ class AuthController
         $this->userService->create($_POST);
         redirectTo('/');
     }
+
+    public function loginView()
+    {
+        echo $this->view->render(
+            'login.php',
+            [
+                'title' => 'Login'
+            ]
+        );
+    }
 }
