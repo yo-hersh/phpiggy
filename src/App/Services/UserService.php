@@ -28,6 +28,8 @@ class UserService
     public function create(array $data)
     {
         extract($data);
+        // d'ont use the default password hashing, if is been changed in the php team, the users will not be able to login
+        $password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
         $this->db->query(
             "INSERT INTO users (email, age, country, social_media_url, password)
              VALUES (:email, :age, :country, :social_media_url, :password)",
