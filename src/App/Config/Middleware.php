@@ -7,6 +7,7 @@ namespace App\Config;
 use Framework\App;
 use App\Middleware\{
     FlashMiddleware,
+    JwtAuthMiddleware,
     SessionMiddleware,
     TemplateDataMiddleware,
     ValidationExceptionMiddleware
@@ -31,6 +32,7 @@ class Middleware
         $app->addMiddleware(TemplateDataMiddleware::class);
         $app->addMiddleware(ValidationExceptionMiddleware::class);
         $app->addMiddleware(FlashMiddleware::class);
+        $app->addMiddleware(JwtAuthMiddleware::class);
         $app->addMiddleware(SessionMiddleware::class);
     }
 }

@@ -25,18 +25,19 @@ class App
     {
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $method = $_SERVER['REQUEST_METHOD'];
+        $token = $_SESSION['token'] ?? null;
 
         $this->router->dispatch($method, $path, $this->container);
     }
 
-    public function get(string $path, array $controller)
+    public function get(string $path, array $controller, bool $protected = false)
     {
-        $this->router->add('GET', $path, $controller);
+        $this->router->add('GET', $path, $controller, $protected);
     }
 
-    public function post(string $path, array $controller)
+    public function post(string $path, array $controller, bool $protected = false)
     {
-        $this->router->add('POST', $path, $controller);
+        $this->router->add('POST', $path, $controller, $protected);
     }
 
     public function addMiddleware(string $middleware)

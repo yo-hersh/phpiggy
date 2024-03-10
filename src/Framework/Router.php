@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace Framework;
 
+use Framework\Exceptions\AuthException;
+
 class Router
 {
     private array $routes = [];
     private array $middlewares = [];
 
-    public function add(string $method, string $path, array $controller): void
+    public function add(string $method, string $path, array $controller, bool $protected): void
     {
         $this->routes[] = [
             'path' => $this->normalizePath($path),
             'method' => strtoupper($method),
-            'controller' => $controller
+            'controller' => $controller,
+            'protected' => $protected,
         ];
     }
 
@@ -39,6 +42,10 @@ class Router
                 continue;
             }
             [$class, $function] = $route['controller'];
+
+            if ($route['protected']) {
+                throw new AuthException();
+            }
 
             $controllerInstance = $container ?
                 $container->resolve($class) :

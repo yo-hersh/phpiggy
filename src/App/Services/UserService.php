@@ -57,4 +57,8 @@ class UserService
 
         return $user;
     }
+
+    public function createToken(array $user)
+    {
+    }
 }
