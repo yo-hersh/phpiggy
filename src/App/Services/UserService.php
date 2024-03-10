@@ -42,4 +42,19 @@ class UserService
             ]
         );
     }
+
+    public function login(string $email, string $password)
+    {
+
+        $user = $this->db->query(
+            "SELECT * FROM users WHERE email = :email",
+            ['email' => $email]
+        )->first();
+
+        if (empty($user) || !password_verify($password, $user['password'])) {
+            throw new ValidationException(['login' => ['Email / Password invalid']]);
+        }
+
+        return $user;
+    }
 }

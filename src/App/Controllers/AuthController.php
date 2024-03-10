@@ -42,4 +42,13 @@ class AuthController
             ]
         );
     }
+
+    public function login()
+    {
+        $this->validatorService->validateLogin($_POST);
+        $user = $this->userService->login($_POST['email'], $_POST['password']);
+        // $token = $this->userService->createToken($user);
+
+        redirectTo('/');
+    }
 }

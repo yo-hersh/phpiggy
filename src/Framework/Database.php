@@ -10,6 +10,7 @@ class Database
 {
     public PDO $connection;
     public PDOStatement $stmt;
+
     public function __construct(string $driver, array $config, string $username, string $password)
     {
 
@@ -35,5 +36,15 @@ class Database
     public function count()
     {
         return $this->stmt->fetchColumn();
+    }
+
+    public function first()
+    {
+        return $this->stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function all()
+    {
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
