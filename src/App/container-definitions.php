@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use Framework\TemplateEngine;
+use Framework\{Router, TemplateEngine, Container, Database};
+use App\Middleware\JwtAuthMiddleware;
 use App\Config\Paths;
+use App\Auth\JwtStrategy;
 use App\Services\{ValidatorService, UserService};
-use Framework\Container;
-use Framework\Database;
 
 return [
     TemplateEngine::class => fn () => new TemplateEngine(paths::VIEW),
@@ -23,8 +23,16 @@ return [
     ),
     UserService::class => function (Container $container) {
         $db = $container->get(Database::class);
+        $jwtStrategy = $container->get(JwtStrategy::class);
 
-        return new UserService($db);
-    }
+        return new UserService($db, $jwtStrategy);
+    },
+    JwtStrategy::class => fn () => new JwtStrategy(),
+    JwtAuthMiddleware::class => function (Container $container) {
+        $authStrategy = $container->get(JwtStrategy::class);
+        $router = $container->get(Router::class);
+
+        return new JwtAuthMiddleware($authStrategy, $router);
+    },
 
 ];

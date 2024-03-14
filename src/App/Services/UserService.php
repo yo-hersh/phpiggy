@@ -6,10 +6,11 @@ namespace App\Services;
 
 use Framework\Database;
 use Framework\Exceptions\ValidationException;
+use App\Auth\JwtStrategy;
 
 class UserService
 {
-    public function __construct(private Database $db)
+    public function __construct(private Database $db, private JwtStrategy $jwtStrategy)
     {
     }
 
@@ -28,8 +29,8 @@ class UserService
     public function create(array $data)
     {
         extract($data);
-        // d'ont use the default password hashing, if is been changed in the php team, the users will not be able to login
-        $password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
+
+        $password = $this->hashPassword($password);
         $this->db->query(
             "INSERT INTO users (email, age, country, social_media_url, password)
              VALUES (:email, :age, :country, :social_media_url, :password)",
@@ -45,20 +46,58 @@ class UserService
 
     public function login(string $email, string $password)
     {
+        $user = $this->getUserByEmail($email);
+        $this->validatePassword($user, $password);
+        $this->addTokenToUser($user);
 
-        $user = $this->db->query(
+        return $user;
+    }
+
+    public function getUserByEmail(string $email)
+    {
+        $user =  $this->db->query(
             "SELECT * FROM users WHERE email = :email",
             ['email' => $email]
         )->first();
 
-        if (empty($user) || !password_verify($password, $user['password'])) {
+        if (empty($user)) {
+            throw new ValidationException(['login' => ['Email / Password invalid']]);
+        }
+        return $user;
+    }
+
+    public function validatePassword(array $user, string $password)
+    {
+        if (!password_verify($password, $user['password'])) {
+            throw new ValidationException(['login' => ['Email / Password invalid']]);
+        }
+    }
+
+    public function getUserByToken(string $token)
+    {
+        $user =
+            $user = $this->db->query(
+                "SELECT * FROM users WHERE token = :token",
+                ['token' => $token]
+            )->first();
+
+        if (empty($user)) {
             throw new ValidationException(['login' => ['Email / Password invalid']]);
         }
 
         return $user;
     }
 
-    public function createToken(array $user)
+    private function hashPassword(string $password)
     {
+        return password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
+    }
+
+    private function addTokenToUser(array $user)
+    {
+        $user['permissions'] = 'user';
+        $token = $this->jwtStrategy->createToken($user);
+
+        header('Authorization: Bearer ' . $token);
     }
 }

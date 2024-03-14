@@ -4,6 +4,6 @@ namespace Framework\Exception;
 
 use Exception;
 
-class ContainerException extends Exception
+class Exception extends Exception
 {
 }
