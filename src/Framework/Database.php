@@ -19,7 +19,7 @@ class Database
         $dsn = "{$driver}:{$config}";
 
         try {
-            $this->connection = new PDO($dsn, $username, $password);
+            $this->connection = new PDO($dsn, $username, $password, [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
         } catch (PDOException $e) {
             die('Connection failed');
         }
@@ -40,11 +40,11 @@ class Database
 
     public function first()
     {
-        return $this->stmt->fetch(PDO::FETCH_ASSOC);
+        return $this->stmt->fetch();
     }
 
     public function all()
     {
-        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->stmt->fetchAll();
     }
 }
