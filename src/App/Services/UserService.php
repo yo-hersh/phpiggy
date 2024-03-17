@@ -51,10 +51,11 @@ class UserService
             ['email' => $email]
         )->first();
 
-        if (empty($user) || !password_verify($password, $user['password'])) {
+        if (empty($user) || !password_verify($password, $user['password']  ?? '')) {
             throw new ValidationException(['login' => ['Email / Password invalid']]);
         }
 
+        $_SESSION['user'] = $user['id'];
         return $user;
     }
 }
