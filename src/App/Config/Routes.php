@@ -18,5 +18,6 @@ class Routes
         $app->post('/register', [AuthController::class, 'register'], [GuestOnlyMiddleware::class]);
         $app->get('/login', [AuthController::class, 'loginView'], [GuestOnlyMiddleware::class]);
         $app->post('/login', [AuthController::class, 'login'], [GuestOnlyMiddleware::class]);
+        $app->get('/logout', [AuthController::class, 'logout'], [AuthRequiredMiddleware::class]);
     }
 }

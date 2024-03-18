@@ -60,4 +60,11 @@ class UserService
         $_SESSION['user'] = $user['id'];
         return $user;
     }
+
+    public function logout()
+    {
+        unset($_SESSION['user']);
+
+        session_regenerate_id();
+    }
 }
