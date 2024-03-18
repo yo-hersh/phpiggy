@@ -14,7 +14,8 @@ class Router
         $this->routes[] = [
             'path' => $this->normalizePath($path),
             'method' => strtoupper($method),
-            'controller' => $controller
+            'controller' => $controller,
+            'middlewares' => [],
         ];
     }
 
@@ -44,9 +45,12 @@ class Router
                 $container->resolve($class) :
                 new $class;
 
+            //middleware which is added last is run first, so it's depends in app needs 
+            $allMiddleware = [...$route['middlewares'], ...$this->middlewares];
+
             $action = fn () => $controllerInstance->{$function}();
 
-            foreach ($this->middlewares as $middleware) {
+            foreach ($allMiddleware as $middleware) {
                 $middleware = $container ?
                     $container->resolve($middleware) :
                     new $middleware;
@@ -61,5 +65,11 @@ class Router
     public function addMiddleware(string $middleware)
     {
         $this->middlewares[] = $middleware;
+    }
+
+    public function addRouteMiddleware(string $middleware)
+    {
+        $lastRouteKey = array_key_last($this->routes);
+        $this->routes[$lastRouteKey]['middlewares'][] = $middleware;
     }
 }
