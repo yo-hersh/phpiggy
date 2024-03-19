@@ -41,6 +41,8 @@ class UserService
                 'password' => $password
             ]
         );
+
+        $this->setUserId((int)$this->db->lastInsertId());
     }
 
     public function login(string $email, string $password)
@@ -55,9 +57,8 @@ class UserService
             throw new ValidationException(['login' => ['Email / Password invalid']]);
         }
 
-        session_regenerate_id(true);
+        $this->setUserId($user['id']);
 
-        $_SESSION['user'] = $user['id'];
         return $user;
     }
 
@@ -66,5 +67,11 @@ class UserService
         unset($_SESSION['user']);
 
         session_regenerate_id();
+    }
+
+    public function setUserId(int $userId)
+    {
+        session_regenerate_id(true);
+        $_SESSION['user'] = $userId;
     }
 }
