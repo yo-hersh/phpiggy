@@ -6,6 +6,7 @@ namespace App\Config;
 
 use Framework\App;
 use App\Middleware\{
+    CsrfTokenMiddleware,
     FlashMiddleware,
     SessionMiddleware,
     TemplateDataMiddleware,
@@ -28,6 +29,7 @@ class Middleware
         3. The session middleware should be the first one to handle the request.
 
         */
+        $app->addMiddleware(CsrfTokenMiddleware::class);
         $app->addMiddleware(TemplateDataMiddleware::class);
         $app->addMiddleware(ValidationExceptionMiddleware::class);
         $app->addMiddleware(FlashMiddleware::class);
