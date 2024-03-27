@@ -42,4 +42,13 @@ class ValidatorService
             'password' => ['required']
         ]);
     }
+
+    public function validateCreateTransaction(array $formData)
+    {
+        $this->validator->validate($formData, [
+            'amount' => ['required', 'min:0.1'],
+            'description' => ['required']
+        ]);
+
+    }
 }
