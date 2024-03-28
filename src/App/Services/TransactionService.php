@@ -36,11 +36,16 @@ class TransactionService
 
     public function getTransactionsByUser()
     {
+        $searchTerm = $_GET['s'] ?? '';
         return $this->db->query(
             "SELECT *,
              DATE_FORMAT(date, '%d-%m-%Y') as formatted_date
-             FROM transactions WHERE user_id = :userId",
-            ['userId' => $_SESSION['user']]
+             FROM transactions WHERE user_id = :userId
+             AND description LIKE :searchTerm",
+            [
+                'userId' => $_SESSION['user'],
+                'searchTerm' => "%{$searchTerm}%"
+            ]
         )->all();
     }
 }
