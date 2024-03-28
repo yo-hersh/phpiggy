@@ -20,5 +20,6 @@ class Routes
         $app->post('/login', [AuthController::class, 'login'], [GuestOnlyMiddleware::class]);
         $app->get('/logout', [AuthController::class, 'logout'], [AuthRequiredMiddleware::class]);
         $app->get('/transaction', [TransactionController::class, 'createView'], [AuthRequiredMiddleware::class]);
+        $app->post('/transaction', [TransactionController::class, 'create'], [AuthRequiredMiddleware::class]);
     }
 }

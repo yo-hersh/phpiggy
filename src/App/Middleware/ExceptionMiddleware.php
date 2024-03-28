@@ -11,6 +11,7 @@ class ExceptionMiddleware implements MiddlewareInterface
         try {
             $next();
         } catch (\Exception $e) {
+            dd($e);
             //  log the exception or do something else here
             redirectTo('/404');
         }

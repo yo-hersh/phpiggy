@@ -10,17 +10,22 @@
 
         <label class="block">
             <span class="text-gray-700">Description</span>
-            <input name="description" value="<?php echo formDataPrinting($oldFormData, 'description', $errors) ?>" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+            <input name="description" value="<?php echo formDataPrinting($oldFormData, 'description', $errors) ?>"
+                type="text"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
             <?php formErrorPrinting('description', $errors) ?>
         </label>
         <label class="block">
             <span class="text-gray-700">Amount</span>
-            <input name="amount" value="<?php echo formDataPrinting($oldFormData, 'amount', $errors) ?>" type="number" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+            <input name="amount" value="<?php echo formDataPrinting($oldFormData, 'amount', $errors) ?>" type="number"
+                step="0.01"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
             <?php formErrorPrinting('amount', $errors) ?>
         </label>
         <label class="block">
             <span class="text-gray-700">Date</span>
-            <input name="date" value="<?php echo formDataPrinting($oldFormData, 'date', $errors) ?>" type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+            <input name="date" value="<?php echo formDataPrinting($oldFormData, 'date', $errors) ?>" type="date"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
             <?php formErrorPrinting('date', $errors) ?>
         </label>
 

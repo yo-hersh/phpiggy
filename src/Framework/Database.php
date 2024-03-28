@@ -14,14 +14,14 @@ class Database
     public function __construct(string $driver, array $config, string $username, string $password)
     {
 
-        $config = http_build_query(data: $config,  arg_separator: ';');
+        $config = http_build_query(data: $config, arg_separator: ';');
 
         $dsn = "{$driver}:{$config}";
 
         try {
             $this->connection = new PDO($dsn, $username, $password, [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
         } catch (PDOException $e) {
-            die('Connection failed');
+            die ('Connection failed');
         }
     }
 
@@ -46,6 +46,11 @@ class Database
     public function all()
     {
         return $this->stmt->fetchAll();
+    }
+
+    public function countColumn()
+    {
+        return $this->stmt->columnCount();
     }
 
     public function lastInsertId()
