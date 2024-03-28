@@ -36,7 +36,7 @@ class TransactionService
 
     public function getTransactionsByUser()
     {
-        $searchTerm = $_GET['s'] ?? '';
+        $searchTerm = addcslashes($_GET['s'] ?? '', '%_');
         return $this->db->query(
             "SELECT *,
              DATE_FORMAT(date, '%d-%m-%Y') as formatted_date
