@@ -34,11 +34,11 @@ class TransactionService
     }
 
 
-    public function getTransactionsByUser($userId)
+    public function getTransactionsByUser()
     {
         return $this->db->query(
             "SELECT * FROM transactions WHERE user_id = :userId",
-            ['userId' => $userId]
+            ['userId' => $_SESSION['user']]
         )->all();
     }
 }
