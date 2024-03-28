@@ -33,4 +33,12 @@ class TransactionService
         )->first();
     }
 
+
+    public function getTransactionsByUser($userId)
+    {
+        return $this->db->query(
+            "SELECT * FROM transactions WHERE user_id = :userId",
+            ['userId' => $userId]
+        )->all();
+    }
 }
