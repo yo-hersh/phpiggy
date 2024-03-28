@@ -13,13 +13,14 @@ class TransactionService
     public function create(array $data)
     {
         extract($data);
+        $formattedDate = "{$date} 00:00:00";
         $this->db->query(
             "INSERT INTO transactions (user_id, amount, description, date) VALUES (:user_id, :amount, :description, :date)",
             [
                 'user_id' => $_SESSION['user'],
                 'amount' => $amount,
                 'description' => $description,
-                'date' => $data
+                'date' => $formattedDate
             ]
         );
     }
