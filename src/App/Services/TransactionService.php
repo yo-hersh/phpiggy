@@ -34,13 +34,8 @@ class TransactionService
     }
 
 
-    public function getTransactionsByUser()
+    public function getTransactionsByUser(string $searchTerm, int $length, int $offset)
     {
-        $searchTerm = addcslashes($_GET['s'] ?? '', '%_');
-        $page = $_GET['p'] ?? 1;
-        $page = (int) $page;
-        $length = TRANSACTIONS_PER_PAGE;
-        $offset = ($page - 1) * $length;
         return $this->db->query(
             "SELECT *,
             DATE_FORMAT(date, '%d-%m-%Y') as formatted_date

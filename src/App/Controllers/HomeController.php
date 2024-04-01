@@ -17,7 +17,17 @@ class HomeController
     }
     public function home()
     {
-        $transactions = $this->transactionService->getTransactionsByUser();
+        $searchTerm = addcslashes($_GET['s'] ?? '', '%_');
+        $page = $_GET['p'] ?? 1;
+        $page = (int) $page;
+        $length = TRANSACTIONS_PER_PAGE;
+        $offset = ($page - 1) * $length;
+
+        $transactions = $this->transactionService->getTransactionsByUser(
+            $searchTerm,
+            $length,
+            $offset
+        );
         echo $this->view->render(
             'index.php',
             [
