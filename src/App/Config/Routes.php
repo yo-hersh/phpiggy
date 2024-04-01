@@ -6,13 +6,13 @@ namespace App\Config;
 
 use App\Controllers\{HomeController, AboutController, AuthController, TransactionController};
 use Framework\App;
-use App\Middleware\{AuthRequiredMiddleware, GuestOnlyMiddleware};
+use App\Middleware\{AuthRequiredMiddleware, GuestOnlyMiddleware, TransactionsCountMiddleware};
 
 class Routes
 {
     public static function registerRoutes(App $app)
     {
-        $app->get('/', [HomeController::class, 'home'], [AuthRequiredMiddleware::class]);
+        $app->get('/', [HomeController::class, 'home'], [AuthRequiredMiddleware::class, TransactionsCountMiddleware::class]);
         $app->get('/about', [AboutController::class, 'about']);
         $app->get('/register', [AuthController::class, 'registerView'], [GuestOnlyMiddleware::class]);
         $app->post('/register', [AuthController::class, 'register'], [GuestOnlyMiddleware::class]);

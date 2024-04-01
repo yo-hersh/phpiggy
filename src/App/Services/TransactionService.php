@@ -23,6 +23,8 @@ class TransactionService
                 'date' => $formattedDate
             ]
         );
+
+        unset($_SESSION['transactionsCount']);
     }
 
     public function getAmountByUser($userId)
@@ -33,10 +35,10 @@ class TransactionService
         )->first();
     }
 
-    public function getTransactionsAndCountByUser(string $searchTerm, int $length, int $offset)
+    public function getWithCountByUser(string $searchTerm, int $length, int $offset)
     {
-        $transactions = $this->getTransactionsByUser($searchTerm, $length, $offset);
-        $count = $this->getTransactionCountByUser($searchTerm);
+        $transactions = $this->getByUser($searchTerm, $length, $offset);
+        $count = $this->getCountByUser($searchTerm);
 
         return [
             $transactions,
@@ -45,9 +47,9 @@ class TransactionService
     }
 
 
-    public function getTransactionsByUser(string $searchTerm, int $length, int $offset)
+    public function getByUser(string $searchTerm, int $length, int $offset)
     {
-        // The LIMIT and OFFSET clauses are not support placeholders only strings, make sure it's provided by you and not by the user.
+        // The LIMIT and OFFSET clauses are not support placeholders only strings, make sure it's provided by you and not by the
         return $this->db->query(
             "SELECT *,
             DATE_FORMAT(date, '%d-%m-%Y') as formatted_date
@@ -61,7 +63,7 @@ class TransactionService
         )->all();
     }
 
-    public function getTransactionCountByUser(string $searchTerm)
+    public function getCountByUser(string $searchTerm)
     {
         return $this->db->query(
             "SELECT COUNT(*) FROM transactions

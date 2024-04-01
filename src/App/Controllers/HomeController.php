@@ -18,9 +18,9 @@ class HomeController
     public function home()
     {
         [$searchTerm, $page, $length, $offset] = $this->getPageInfo();
-        [$transactions, $count] = $this->getTransactionsAndCount($searchTerm, $length, $offset);
+        $transactions = $this->transactionService->getByUser($searchTerm, $length, $offset);
 
-        $lastPage = $this->calculateLastPage($count, $length);
+        $lastPage = $this->calculateLastPage($length);
 
         echo $this->view->render(
             'index.php',
@@ -57,15 +57,9 @@ class HomeController
         return [$searchTerm, $page, $length, $offset];
     }
 
-    private function calculateLastPage(int $count, int $length)
+    private function calculateLastPage(int $length)
     {
-        return ceil($count / $length);
-    }
-
-
-    private function getTransactionsAndCount(string $searchTerm, int $length, int $offset)
-    {
-        return $this->transactionService->getTransactionsAndCountByUser($searchTerm, $length, $offset);
+        return ceil($_SESSION['transactionsCount'] / $length);
     }
 
 }
