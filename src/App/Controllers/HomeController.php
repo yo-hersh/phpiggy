@@ -32,7 +32,14 @@ class HomeController
             'index.php',
             [
                 'title' => 'Home',
-                'transactions' => $transactions
+                'transactions' => $transactions,
+                'currentPage' => $page,
+                'previousPageQuery' => http_build_query(
+                    [
+                        's' => $searchTerm,
+                        'p' => $page - 1
+                    ]
+                )
             ]
         );
     }
