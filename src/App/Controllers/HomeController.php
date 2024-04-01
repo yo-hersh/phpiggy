@@ -23,11 +23,14 @@ class HomeController
         $length = TRANSACTIONS_PER_PAGE;
         $offset = ($page - 1) * $length;
 
-        $transactions = $this->transactionService->getTransactionsByUser(
+        [$transactions, $count] = $this->transactionService->getTransactionsAndCountByUser(
             $searchTerm,
             $length,
             $offset
         );
+        // dd($transactions, $count);
+        $lastPage = ceil($count / $length);
+
         echo $this->view->render(
             'index.php',
             [
@@ -39,8 +42,15 @@ class HomeController
                         's' => $searchTerm,
                         'p' => $page - 1
                     ]
-                )
-            ]
+                ),
+                'nextPageQuery' => http_build_query(
+                    [
+                        's' => $searchTerm,
+                        'p' => $page + 1
+                    ]
+                ),
+                'lastPage' => $lastPage
+            ],
         );
     }
 }
