@@ -37,11 +37,16 @@ class TransactionService
     public function getTransactionsByUser()
     {
         $searchTerm = addcslashes($_GET['s'] ?? '', '%_');
+        $page = $_GET['p'] ?? 1;
+        $page = (int) $page;
+        $length = TRANSACTIONS_PER_PAGE;
+        $offset = ($page - 1) * $length;
         return $this->db->query(
             "SELECT *,
-             DATE_FORMAT(date, '%d-%m-%Y') as formatted_date
-             FROM transactions WHERE user_id = :userId
-             AND description LIKE :searchTerm",
+            DATE_FORMAT(date, '%d-%m-%Y') as formatted_date
+            FROM transactions WHERE user_id = :userId
+            AND description LIKE :searchTerm
+            LIMIT {$length} OFFSET {$offset}",
             [
                 'userId' => $_SESSION['user'],
                 'searchTerm' => "%{$searchTerm}%"
