@@ -17,24 +17,16 @@ class HomeController
     }
     public function home()
     {
-        $searchTerm = addcslashes($_GET['s'] ?? '', '%_');
-        $page = $_GET['p'] ?? 1;
-        $page = (int) $page;
-        $length = TRANSACTIONS_PER_PAGE;
-        $offset = ($page - 1) * $length;
+        [$searchTerm, $page, $length, $offset] = $this->getPageInfo();
+        [$transactions, $count] = $this->getTransactionsAndCount($searchTerm, $length, $offset);
 
-        [$transactions, $count] = $this->transactionService->getTransactionsAndCountByUser(
-            $searchTerm,
-            $length,
-            $offset
-        );
-        // dd($transactions, $count);
-        $lastPage = ceil($count / $length);
+        $lastPage = $this->calculateLastPage($count, $length);
 
         echo $this->view->render(
             'index.php',
             [
                 'title' => 'Home',
+                'searchTerm' => $searchTerm,
                 'transactions' => $transactions,
                 'currentPage' => $page,
                 'previousPageQuery' => http_build_query(
@@ -53,4 +45,27 @@ class HomeController
             ],
         );
     }
+
+    private function getPageInfo()
+    {
+        $searchTerm = addcslashes($_GET['s'] ?? '', '%_');
+        $page = $_GET['p'] ?? 1;
+        $page = (int) $page;
+        $length = TRANSACTIONS_PER_PAGE;
+        $offset = ($page - 1) * $length;
+
+        return [$searchTerm, $page, $length, $offset];
+    }
+
+    private function calculateLastPage(int $count, int $length)
+    {
+        return ceil($count / $length);
+    }
+
+
+    private function getTransactionsAndCount(string $searchTerm, int $length, int $offset)
+    {
+        return $this->transactionService->getTransactionsAndCountByUser($searchTerm, $length, $offset);
+    }
+
 }

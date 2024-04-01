@@ -21,7 +21,7 @@
     <!-- Search Form -->
     <form method="GET" class="mt-4 w-full">
         <div class="flex">
-            <input name="s" type="text"
+            <input name="s" type="text" value="<?php echo e($searchTerm ?? ''); ?>"
                 class="w-full rounded-l-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 placeholder="Enter search term" />
             <button type="submit"
@@ -140,7 +140,7 @@
         <!-- Pages Link -->
         <div class="hidden md:-mt-px md:flex">
             <a href="/" class="inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium">
-                1
+                <?php echo e($currentPage); ?>
             </a>
             <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
         </div>
