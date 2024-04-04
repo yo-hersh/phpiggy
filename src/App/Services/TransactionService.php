@@ -77,16 +77,17 @@ class TransactionService
         )->first();
     }
 
-    public function edit(string $transactionId, array $data)
+    public function update(string $transactionId, array $data)
     {
         extract($data);
         $formattedDate = "{$date} 00:00:00";
         $this->db->query(
-            "UPDATE transactions SET amount = :amount, description = :description, date = :date WHERE id = :id",
+            "UPDATE transactions SET amount = :amount, description = :description, date = :date WHERE user_id = :user_id AND id = :id",
             [
                 'amount' => $amount,
                 'description' => $description,
                 'date' => $formattedDate,
+                'user_id' => $_SESSION['user'],
                 'id' => $transactionId
             ]
         );
