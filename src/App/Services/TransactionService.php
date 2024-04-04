@@ -35,21 +35,9 @@ class TransactionService
         )->first();
     }
 
-    public function getWithCountByUser(string $searchTerm, int $length, int $offset)
-    {
-        $transactions = $this->getByUser($searchTerm, $length, $offset);
-        $count = $this->getCountByUser($searchTerm);
-
-        return [
-            $transactions,
-            $count
-        ];
-    }
-
-
     public function getByUser(string $searchTerm, int $length, int $offset)
     {
-        // The LIMIT and OFFSET clauses are not support placeholders only strings, make sure it's provided by you and not by the
+        // The LIMIT and OFFSET clauses are not support placeholders only strings, make sure it's provided by you and not by the user
         return $this->db->query(
             "SELECT *,
             DATE_FORMAT(date, '%d-%m-%Y') as formatted_date
