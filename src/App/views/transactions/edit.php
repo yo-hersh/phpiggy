@@ -7,19 +7,19 @@
 
         <label class="block">
             <span class="text-gray-700">Description</span>
-            <input name="description" type="text"
+            <input name="description" type="text" value="<?php echo e($transaction['description']) ?>"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
             <?php formErrorPrinting('description', $errors) ?>
         </label>
         <label class="block">
             <span class="text-gray-700">Amount</span>
-            <input name="amount" type="number" step="0.01"
+            <input name="amount" type="number" value="<?php echo e($transaction['amount']) ?>" step="0.01"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
             <?php formErrorPrinting('amount', $errors) ?>
         </label>
         <label class="block">
             <span class="text-gray-700">Date</span>
-            <input name="date" type="date"
+            <input name="date" type="date" value="<?php echo e($transaction['formatted_date']) ?>"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
             <?php formErrorPrinting('date', $errors) ?>
         </label>
