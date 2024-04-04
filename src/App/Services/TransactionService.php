@@ -75,4 +75,17 @@ class TransactionService
             ]
         )->count();
     }
+
+    public function getOneByUser(string $transactionId)
+    {
+        return $this->db->query(
+            "SELECT *,
+            DATE_FORMAT(date, '%Y-%m-%d') as formatted_date
+            FROM transactions WHERE user_id = :userId AND id = :id",
+            [
+                'userId' => $_SESSION['user'],
+                'id' => $transactionId
+            ]
+        )->first();
+    }
 }
