@@ -76,4 +76,19 @@ class TransactionService
             ]
         )->first();
     }
+
+    public function edit(string $transactionId, array $data)
+    {
+        extract($data);
+        $formattedDate = "{$date} 00:00:00";
+        $this->db->query(
+            "UPDATE transactions SET amount = :amount, description = :description, date = :date WHERE id = :id",
+            [
+                'amount' => $amount,
+                'description' => $description,
+                'date' => $formattedDate,
+                'id' => $transactionId
+            ]
+        );
+    }
 }

@@ -40,5 +40,11 @@ class TransactionController
         ]);
     }
 
+    public function edit(array $params)
+    {
+        $this->validatorService->validateCreateTransaction($_POST);
+        $this->transactionService->edit($params['transaction'], $_POST);
+        redirectTo('/');
+    }
 
 }

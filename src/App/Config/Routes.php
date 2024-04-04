@@ -22,5 +22,6 @@ class Routes
         $app->get('/transaction', [TransactionController::class, 'createView'], [AuthRequiredMiddleware::class]);
         $app->post('/transaction', [TransactionController::class, 'create'], [AuthRequiredMiddleware::class]);
         $app->get('/transaction/{transaction}', [TransactionController::class, 'editView'], [AuthRequiredMiddleware::class]);
+        $app->post('/transaction/{transaction}', [TransactionController::class, 'edit'], [AuthRequiredMiddleware::class]);
     }
 }
