@@ -23,5 +23,6 @@ class Routes
         $app->post('/transaction', [TransactionController::class, 'create'], [AuthRequiredMiddleware::class]);
         $app->get('/transaction/{transaction}', [TransactionController::class, 'editView'], [AuthRequiredMiddleware::class]);
         $app->post('/transaction/{transaction}', [TransactionController::class, 'edit'], [AuthRequiredMiddleware::class]);
+        $app->delete('/transaction/{transaction}', [TransactionController::class, 'delete'], [AuthRequiredMiddleware::class]);
     }
 }

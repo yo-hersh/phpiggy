@@ -45,6 +45,14 @@ class App
         }
     }
 
+    public function delete(string $path, array $controller, array $middlewares = [])
+    {
+        $this->router->add('DELETE', $path, $controller);
+        foreach ($middlewares as $middleware) {
+            $this->addRouteMiddleware($middleware);
+        }
+    }
+
     public function addMiddleware(string $middleware)
     {
         $this->router->addMiddleware($middleware);

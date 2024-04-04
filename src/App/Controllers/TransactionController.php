@@ -47,4 +47,10 @@ class TransactionController
         redirectTo($_SERVER['HTTP_REFERER']);
     }
 
+    public function delete(array $params)
+    {
+        $this->transactionService->delete($params['transaction']);
+        redirectTo('/');
+    }
+
 }
