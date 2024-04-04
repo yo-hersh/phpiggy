@@ -31,6 +31,6 @@ class TransactionController
 
     public function editView(array $transaction)
     {
-        dd($transaction);
+        echo $this->view->render("transactions/edit.php", [$transaction]);
     }
 }
