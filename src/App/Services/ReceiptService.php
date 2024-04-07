@@ -70,7 +70,7 @@ class ReceiptService
         }
 
         $this->db->query(
-            'INSERT INTO receipts ( transaction_id, original_filename,storage_filename , media_type) VALUES (:transaction_id, :original_filename, :storage_filename, :media_type);',
+            'INSERT INTO receipts(transaction_id, original_filename, storage_filename, media_type) VALUES (:transaction_id, :original_filename, :storage_filename, :media_type);',
             [
                 'transaction_id' => $transactionId,
                 'original_filename' => $file['name'],
@@ -79,6 +79,26 @@ class ReceiptService
             ]
         );
     }
+
+    public function getOneByUser(string $receiptId)
+    {
+        return $this->db->query(
+            "SELECT * FROM receipts WHERE id = :receiptId",
+            ['receiptId' => $receiptId]
+        )->first();
+    }
+
+    public function download(array $receipt)
+    {
+        $filePath = Paths::STORAGE_UPLOADS . '/' . $receipt['storage_filename'];
+        if (!file_exists($filePath)) {
+            redirectTo("/");
+        }
+        header("Content-Disposition: inline;filename={$receipt['original_filename']}");
+        header("Content-Type:{$receipt['media_type']}");
+        readfile($filePath);
+    }
+
 }
 
 

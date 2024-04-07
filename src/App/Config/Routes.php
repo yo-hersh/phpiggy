@@ -26,5 +26,7 @@ class Routes
         $app->delete('/transaction/{transaction}', [TransactionController::class, 'delete'], [AuthRequiredMiddleware::class]);
         $app->get('/transaction/{transaction}/receipt', [ReceiptController::class, 'uploadView'], [AuthRequiredMiddleware::class]);
         $app->post('/transaction/{transaction}/receipt', [ReceiptController::class, 'upload'], [AuthRequiredMiddleware::class]);
+        $app->get('/transaction/{transaction}/receipt/{receipt}', [ReceiptController::class, 'download'], [AuthRequiredMiddleware::class]);
+        $app->delete('/transaction/{transaction}/receipt/{receipt}', [ReceiptController::class, 'delete'], [AuthRequiredMiddleware::class]);
     }
 }

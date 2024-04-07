@@ -38,7 +38,7 @@ class TransactionService
     public function getByUser(string $searchTerm, int $length, int $offset)
     {
         // The LIMIT and OFFSET clauses are not support placeholders only strings, make sure it's provided by you and not by the user
-        return $this->db->query(
+        $transactions = $this->db->query(
             "SELECT *,
             DATE_FORMAT(date, '%d-%m-%Y') as formatted_date
             FROM transactions WHERE user_id = :userId
@@ -49,6 +49,16 @@ class TransactionService
                 'searchTerm' => "%{$searchTerm}%"
             ]
         )->all();
+
+        $transactions = array_map(function (array $transaction) {
+            $transaction['receipt'] = $this->db->query(
+                "SELECT * FROM receipts WHERE transaction_id = :transactionId",
+                ['transactionId' => $transaction['id']]
+            )->all();
+            return $transaction;
+        }, $transactions);
+
+        return $transactions;
     }
 
     public function getCountByUser(string $searchTerm)
