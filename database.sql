@@ -41,3 +41,11 @@ CREATE TABLE IF NOT EXISTS transactions(
     user_id BIGINT(20) UNSIGNED NOT NULL,
     FOREIGN KEY(user_id) REFERENCES users(id)
 );
+CREATE TABLE IF NOT EXISTS receipts(
+  id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  original_filename VARCHAR(255) NOT NULL,
+  storage_filename VARCHAR(255) NOT NULL,
+  media_type VARCHAR(255) NOT NULL,
+  transaction_id BIGINT(20) UNSIGNED NOT NULL,
+  FOREIGN KEY(transaction_id) REFERENCES transactions(id) ON DELETE CASCADE
+);
