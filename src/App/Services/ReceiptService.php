@@ -14,7 +14,7 @@ class ReceiptService
     ) {
     }
 
-    public function validateUpload(?array $file, string $transactionId)
+    public function validateUpload(?array $file)
     {
         if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
             throw new ValidationException(
@@ -43,14 +43,6 @@ class ReceiptService
             );
         }
 
-        if (!isset($file['tmp_name'])) {
-            throw new ValidationException(
-                [
-                    'receipt' => ['Invalid file']
-                ]
-            );
-        }
-
         $pattern = '/^[\p{L}\p{N}\s_.-]+$/u';
         if (!preg_match($pattern, $file['name'])) {
             throw new ValidationException(
@@ -60,6 +52,23 @@ class ReceiptService
             );
         }
 
-        dd($file);
+    }
+
+    public function upload(array $file, string $transactionId)
+    {
+        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $newFileName = bin2hex(random_bytes(16)) . '.' . $fileExtension;
+        dd($newFileName);
+        // $this->db->update(
+        //     'transactions',
+        //     [
+        //         'receipt' => $file['name']
+        //     ],
+        //     [
+        //         'id' => $transactionId
+        //     ]
+        // );
     }
 }
+
+

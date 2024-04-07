@@ -32,8 +32,9 @@ class ReceiptController
         if ($transaction == null) {
             redirectTo("/");
         }
-        $this->receiptService->validateUpload($_FILES['receipt'], $params['transaction']);
-
+        $receipt = $_FILES['receipt'] ?? null;
+        $this->receiptService->validateUpload($receipt);
+        $this->receiptService->upload($receipt, $params['transaction']);
 
         redirectTo("/");
     }
