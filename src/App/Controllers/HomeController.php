@@ -41,6 +41,18 @@ class HomeController
                         'p' => $page + 1
                     ]
                 ),
+                'firstPageQuery' => http_build_query(
+                    [
+                        's' => $searchTerm,
+                        'p' => 1
+                    ]
+                ),
+                'lastPageQuery' => http_build_query(
+                    [
+                        's' => $searchTerm,
+                        'p' => $lastPage
+                    ]
+                ),
                 'lastPage' => $lastPage
             ],
         );
