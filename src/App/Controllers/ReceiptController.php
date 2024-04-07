@@ -57,6 +57,24 @@ class ReceiptController
 
         $this->receiptService->download($receipt);
 
+    }
 
+    public function delete(array $params)
+    {
+        $transaction = $this->transactionService->getOneByUser($params['transaction']);
+        if (empty($transaction)) {
+            redirectTo("/");
+        }
+
+        $receipt = $this->receiptService->getOneByUser($params['receipt']);
+        if (empty($receipt)) {
+            redirectTo("/");
+        }
+
+        if ($receipt['transaction_id'] != $transaction['id']) {
+            redirectTo("/");
+        }
+
+        $this->receiptService->delete($receipt);
     }
 }
