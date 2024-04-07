@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Config\Paths;
 use Framework\Database;
 use Framework\Exceptions\ValidationException;
 
@@ -58,16 +59,25 @@ class ReceiptService
     {
         $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
         $newFileName = bin2hex(random_bytes(16)) . '.' . $fileExtension;
-        dd($newFileName);
-        // $this->db->update(
-        //     'transactions',
-        //     [
-        //         'receipt' => $file['name']
-        //     ],
-        //     [
-        //         'id' => $transactionId
-        //     ]
-        // );
+        $newLocation = Paths::STORAGE_UPLOADS . '/' . $newFileName;
+
+        if (!move_uploaded_file($file['tmp_name'], $newLocation)) {
+            throw new ValidationException(
+                [
+                    'receipt' => ['Failed to upload file']
+                ]
+            );
+        }
+
+        $this->db->query(
+            'INSERT INTO receipts ( transaction_id, original_filename,storage_filename , media_type) VALUES (:transaction_id, :original_filename, :storage_filename, :media_type);',
+            [
+                'transaction_id' => $transactionId,
+                'original_filename' => $file['name'],
+                'storage_filename' => $newFileName,
+                'media_type' => $file['type']
+            ]
+        );
     }
 }
 
