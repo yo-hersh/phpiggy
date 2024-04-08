@@ -42,7 +42,7 @@ class UserService
             ]
         );
 
-        $this->setUserId((int)$this->db->lastInsertId());
+        $this->setUserId((int) $this->db->lastInsertId());
     }
 
     public function login(string $email, string $password)
@@ -53,7 +53,7 @@ class UserService
             ['email' => $email]
         )->first();
 
-        if (empty($user) || !password_verify($password, $user['password']  ?? '')) {
+        if (empty($user) || !password_verify($password, $user['password'] ?? '')) {
             throw new ValidationException(['login' => ['Email / Password invalid']]);
         }
 
@@ -64,9 +64,22 @@ class UserService
 
     public function logout()
     {
-        unset($_SESSION['user']);
+        // unset($_SESSION['user']);
 
-        session_regenerate_id();
+        session_destroy();
+
+        $params = session_get_cookie_params();
+        setcookie(
+            'PHPSESSID',
+            '',
+            time() - 3600,
+            $params['path'],
+            $params['domain'],
+            $params['secure'],
+            $params['httponly']
+        );
+
+        // session_regenerate_id();
     }
 
     public function setUserId(int $userId)
