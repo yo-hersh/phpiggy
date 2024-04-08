@@ -8,6 +8,7 @@ class Router
 {
     private array $routes = [];
     private array $middlewares = [];
+    private array $errorHandlers;
 
     public function add(string $method, string $path, array $controller): void
     {
@@ -66,6 +67,8 @@ class Router
 
             return;
         }
+
+        $this->dispatchNotFound($container);
     }
 
     public function addMiddleware(string $middleware)
@@ -88,6 +91,26 @@ class Router
         $params = array_combine($paramKeys, $paramValues);
 
         return $params;
+    }
+
+    public function setErrorHandlers(array $controller)
+    {
+        $this->errorHandlers = $controller;
+    }
+
+    public function dispatchNotFound(?Container $container)
+    {
+        [$class, $function] = $this->errorHandlers;
+
+        $controllerInstance = $container ? $container->resolve($class) : new $class;
+
+        $action = fn() => $controllerInstance->$function();
+
+        foreach ($this->middlewares as $middleware) {
+            $middleware = $container ? $container->resolve($middleware) : new $middleware;
+            $action = fn() => $middleware->process($action);
+        }
+        $action();
     }
 
 }
