@@ -1,3 +1,8 @@
 <?php
 
-define('TRANSACTIONS_PER_PAGE', 5);
+namespace App\Config;
+
+class Config
+{
+    public const TRANSACTIONS_PER_PAGE = 5;
+}

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Config\Config;
 use App\Services\TransactionService;
 use Framework\TemplateEngine;
-use App\Config\Paths;
+
 
 class HomeController
 {
@@ -63,7 +64,7 @@ class HomeController
         $searchTerm = addcslashes($_GET['s'] ?? '', '%_');
         $page = $_GET['p'] ?? 1;
         $page = (int) $page;
-        $length = TRANSACTIONS_PER_PAGE;
+        $length = Config::TRANSACTIONS_PER_PAGE;
         $offset = ($page - 1) * $length;
 
         return [$searchTerm, $page, $length, $offset];
