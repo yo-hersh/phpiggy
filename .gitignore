@@ -7,4 +7,5 @@ composer.phar
 .vscode
 .gitignore
 .env
-/storage/
+storage/uploads/*
+!storage/uploads/.gitkeep
